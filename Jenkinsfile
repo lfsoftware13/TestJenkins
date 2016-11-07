@@ -4,6 +4,8 @@ node {
     }
     stage('QA') {
         sh 'pwd'
+        sh 'echo $PATH'
+        sh 'echo $SHELL'
         sh 'sonar-scanner'
     }
     stage('build') {
