@@ -4,7 +4,7 @@ node {
     }
     stage('QA') {
         sh 'pwd'
-        sh 'sonar-runner'
+        sh 'sonar-scanner'
     }
     stage('build') {
         def mvnHome = tool 'M3'
