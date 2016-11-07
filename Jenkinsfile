@@ -17,7 +17,7 @@ node {
         sh "docker stop my || true"
         sh "docker rm my || true"
         sh "docker run --name my -p 11111:8080 -d tomcat"
-        sh "docker cp target/maven-web-demo.war my:/usr/local/tomcat/webapps"
+        sh "docker cp maven-web-demo/target/maven-web-demo.war my:/usr/local/tomcat/webapps"
     }
     stage('results') {
         archiveArtifacts artifacts: '**/target/*.war', fingerprint: true
