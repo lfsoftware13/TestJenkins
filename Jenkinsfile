@@ -10,6 +10,7 @@ node {
     }
     stage('build') {
         def mvnHome = tool 'M3'
+        sh "cd maven-web-demo"
         sh "${mvnHome}/bin/mvn -B clean package"
     }
     stage('deploy') {
