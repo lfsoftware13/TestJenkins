@@ -3,6 +3,7 @@ node {
         git 'https://github.com/lfsoftware13/TestJenkins.git'
     }
     stage('QA') {
+        sh 'pwd'
         sh 'sonar-scanner'
     }
     stage('build') {
