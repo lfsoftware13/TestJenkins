@@ -22,8 +22,8 @@ import com.ccl.service.UserRegisterService;
 
 /**
  *
- * @author 霄汉
- * @since 2016年3月7日 下午2:22:21
+ * @author éœ„æ±‰
+ * @since 2016å¹´3æœˆ7æ—¥ ä¸‹å�ˆ2:22:21
  * @version 1.0
  */
 @Controller
@@ -43,7 +43,7 @@ public class LoginAction extends BaseAction{
 	public String execute() {
 		List<User> curUsers = manageService.getAllTeacherUser();
 		if (curUsers == null || curUsers.size() == 0) {
-			//初始化admin账号
+			//åˆ�å§‹åŒ–adminè´¦å�·
 			registerService.registerAdmin();
 		}
 		
@@ -61,7 +61,7 @@ public class LoginAction extends BaseAction{
 			}
 			request.getSession().removeAttribute("errorMessage");
 			
-			//0老师 1参与者 2助教
+			//0è€�å¸ˆ 1å�‚ä¸Žè€… 2åŠ©æ•™
 			HashMap<Integer, Integer> authorityMap = new HashMap<Integer, Integer>();
 //			if (result.getUserType() == 0) {
 //				List<Teach> teaches = loginService.getUserAllTeach(uid);
@@ -79,15 +79,18 @@ public class LoginAction extends BaseAction{
 //				}
 //			}
 			
+			
+			List<Selection> selections = loginService.getUserAllSelection(uid);
+			for (Selection t : selections) {
+				authorityMap.put(t.getCid(), 1);
+			}
+			
 				List<Teach> teaches = loginService.getUserAllTeach(uid);
 				for (Teach t : teaches) {
 					authorityMap.put(t.getCid(), 0);
 				}
 			
-				List<Selection> selections = loginService.getUserAllSelection(uid);
-				for (Selection t : selections) {
-					authorityMap.put(t.getCid(), 1);
-				}
+
 			
 			request.getSession().setAttribute("authorityMap", authorityMap);
 			return SUCCESS;

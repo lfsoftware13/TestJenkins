@@ -10,7 +10,7 @@
 		        <span class="icon-bar"></span>
 		        <span class="icon-bar"></span>
 	        </button>
-	         <a class="navbar-brand" href="index.jsp">Risk Master</a>
+	         <a class="navbar-brand" href="javascript:void(0)">Risk Master</a>
 	    </div>
 	    <!--/.navbar-header-->
 	    <div class="navbar-collapse collapse" id="bs-example-navbar-collapse-1" style="height: 1px;">
