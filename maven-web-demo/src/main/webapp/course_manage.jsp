@@ -33,7 +33,7 @@
 						<input type="text" style="display:none;" />	<!-- 防止回车自动提交 -->
 				</div>
 				<div class="input-group input-group1" >
-						<input class="form-control has-dark-background" name="teacher-uid" placeholder="负责人"
+						<input class="form-control has-dark-background" name="teacher-uid" placeholder="负责人（选择后按回车添加多个负责人）"
 											type="text" id="teacher0"/>
 				</div>
 			</form>
@@ -90,7 +90,7 @@
 		div.setAttribute("class", "input-group input-group1");
 		var text = document.createElement("input");
 		text.setAttribute("class", "form-control has-dark-background");
-		text.setAttribute("placeholder", "负责人");
+		text.setAttribute("placeholder", "负责人（选择后按回车添加多个负责人）");
 		text.setAttribute("type", "text");
 		$(text).bind("keydown", function (e) {
 			var curKey = e.which;
@@ -127,7 +127,7 @@
 		var text2 = document.createElement("input");
 		text2.setAttribute("id", "teacher0");
 		text2.setAttribute("class", "form-control has-dark-background");
-		text2.setAttribute("placeholder", "负责人");
+		text2.setAttribute("placeholder", "负责人（选择后按回车添加多个负责人）");
 		text2.setAttribute("type", "text");
 		div2.appendChild(text2);
 		form.appendChild(div2);
