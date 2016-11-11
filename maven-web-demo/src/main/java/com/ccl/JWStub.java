@@ -28,24 +28,13 @@ public class JWStub {
 	
 	public static User lookupUser(String uid) {
 		User user = new User();
-		if (uid.equals("131250207")) {
-			Calendar c = Calendar.getInstance();
-			c.set(Calendar.YEAR, 1994);
-			c.set(Calendar.MONTH, 5);
-			c.set(Calendar.DAY_OF_MONTH, 18);
-			user.setBirthday(new Date(c.getTimeInMillis()));
-			user.setCreatedAt(new Date(c.getTimeInMillis()));
-			user.setGender(0);
-			user.setUsername("丁霄汉");
-			user.setUserType(1);
-		}else {
-			if (uid.length() < 3) return null;
-			int hash = Math.abs(uid.hashCode());
-			String name = FAMILY_NAMES[hash % 12] + LAST_NAMES[hash % 19];
-			user.setUsername(name);
-			int ageOff = hash % 5;
-			Calendar c = Calendar.getInstance();
-//			if (uid.charAt(0) == 'T') {
+		if (uid == null || uid.equals("null") || uid.equals("\"null\"") || uid.length() < 3) return null;
+		int hash = Math.abs(uid.hashCode());
+		String name = FAMILY_NAMES[hash % 12] + LAST_NAMES[hash % 19];
+		user.setUsername(name);
+		int ageOff = hash % 5;
+		Calendar c = Calendar.getInstance();
+//		if (uid.charAt(0) == 'T') {
 				c.set(1980 + ageOff, hash % 11, hash % 28);
 				user.setUserType(0);
 	//		}else {
@@ -55,7 +44,7 @@ public class JWStub {
 			user.setBirthday(new Date(c.getTimeInMillis()));
 			user.setCreatedAt(new Date(c.getTimeInMillis()));
 			user.setGender(hash % 2);
-		}
+		
 		user.setPassword(uid);
 		user.setUid(uid);
 		return user;
