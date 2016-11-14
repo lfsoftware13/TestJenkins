@@ -29,7 +29,13 @@ public class JWStub {
 	public static User lookupUser(String uid) {
 		User user = new User();
 		if (uid == null || uid.equals("null") || uid.equals("\"null\"") || uid.length() < 3) return null;
-		int hash = Math.abs(uid.hashCode());
+		int hash = uid.hashCode();
+		if (hash == Integer.MIN_VALUE) {
+			hash = 0;
+		}
+		else if (hash < 0) {
+			hash = - hash;
+		}
 		String name = FAMILY_NAMES[hash % 12] + LAST_NAMES[hash % 19];
 		user.setUsername(name);
 		int ageOff = hash % 5;
