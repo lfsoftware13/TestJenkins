@@ -1,11 +1,13 @@
 package com.ccl.action.assignment;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
 import com.ccl.action.BaseAction;
 import com.ccl.service.AssignmentService;
 import com.ccl.service.NoticeService;
 
+@Controller
 public class ImportAssignmentAction extends BaseAction{
 	
 	/**
@@ -24,6 +26,8 @@ public class ImportAssignmentAction extends BaseAction{
 			
 		int cid = Integer.parseInt(request.getParameter("cid"));
 		int assignmentid = Integer.parseInt(request.getParameter("assignmentid"));
+		
+		
 		
 		service.importAssignment(cid, assignmentid);
 		setResult("success");

@@ -264,6 +264,10 @@
 				<param name="root">result</param>
 			</result>
 		</action>
+		
+		<action name="ImportAssignmentPage" class="com.ccl.action.assignment.ImportAssignmentPageAction">
+			<result name="success">/assignment_import.jsp</result>
+		</action>
 
 		<action name="DelAssignment" class="com.ccl.action.assignment.DelAssignmentAction" >
 			<result type="json">
@@ -272,6 +276,18 @@
 		</action>
 
 		<action name="GetAssignments" class="com.ccl.action.assignment.GetAssignmentsAction" >
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+		
+		<action name="GetAssignmentsToImport" class="com.ccl.action.assignment.GetAssignmentsToImportAction" >
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+		
+		<action name="GetRecommendAssignments" class="com.ccl.action.assignment.GetRecommendAssignmentsAction" >
 			<result type="json">
 				<param name="root">result</param>
 			</result>
@@ -334,6 +350,8 @@
 				<param name="root">result</param>
 			</result>
 		</action>
+		
+
 		
 	</package>
 	

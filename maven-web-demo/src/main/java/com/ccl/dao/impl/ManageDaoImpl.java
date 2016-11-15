@@ -54,7 +54,7 @@ public class ManageDaoImpl extends BaseDaoImpl<Manage> implements ManageDao{
 
 	@Override
 	public List<Assignment> getAssignmentsToImportByCid(int cid) {
-		String sql = "select a from Assignment a, Manage m where a.assignmentid<>m.assignmentid and m.cid='"+cid+"'";
+		String sql = "select a from Assignment a where a.assignmentid not in (select assignmentid from Manage m where m.cid='"+cid+"')";
 		@SuppressWarnings("unchecked")
 		List<Assignment> result = getSession().createQuery(sql).list();
 		return result;
@@ -62,7 +62,7 @@ public class ManageDaoImpl extends BaseDaoImpl<Manage> implements ManageDao{
 
 	@Override
 	public List<Report> getReportsExceptGivenCid(int cid) {
-		String sql = "select r from report r where r.assignmentid not in (select assignmentid from manage m where m.cid='" + cid + "';";
+		String sql = "select r from Report r where r.assignmentid not in (select assignmentid from Manage m where m.cid='" + cid + "')";
 		@SuppressWarnings("unchecked")
 		List<Report> result = getSession().createQuery(sql).list();
 		return result;

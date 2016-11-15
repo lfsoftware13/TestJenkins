@@ -59,6 +59,10 @@
 	            <input type="submit" value="发布" id="addBtn" class="course-submit-wide" />
 	       </div>		
 	       
+	       <div class="col-md-6 admission_right">
+	            <a href="/maven-web-demo/assignment/ImportAssignmentPage.action?cid=${requestScope.cid}&authority=${authority}">导入风险</a>
+	       </div>	
+	       
 	       <script>
 	   	
 	   	var teacherinfo = [];
@@ -78,6 +82,7 @@
 	   	bindFirstText();
 	   	refreshAssignmentTable();
 	   	addBtn();
+
 	   	
 	   	function bindFirstText() {
 	   		$("#teacher0").bind("keydown", function (e) {

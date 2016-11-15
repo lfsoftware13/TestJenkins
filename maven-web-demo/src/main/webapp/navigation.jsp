@@ -37,7 +37,9 @@
 
 
 	        		<li class="dropdown">
-		            	<s:a href="/maven-web-demo/statistics.jsp"><i class="fa fa-bar-chart-o"></i><span>统计数据</span></s:a>
+	        			<s:if test="#session.user.userType==0" >
+		            		<s:a href="/maven-web-demo/statistics.jsp"><i class="fa fa-bar-chart-o"></i><span>统计数据</span></s:a>
+		            	</s:if>
 		        	</li>
 
 
