@@ -84,6 +84,7 @@ public class NoticeServiceImpl implements NoticeService{
 	@Override
 	public void sendAssignmentNotice(int cid) {
 		Course course = courseDao.findById(Course.class, cid);
+		if (course == null) return;
 		String name = course.getCoursename();
 		List<Selection> selections = selectionDao.getListByColumn(Selection.class, "cid", cid);
 		for (Selection s : selections) {

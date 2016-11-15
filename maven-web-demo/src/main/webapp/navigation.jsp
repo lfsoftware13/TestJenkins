@@ -34,6 +34,13 @@
 		        		<s:a href="/maven-web-demo/mycourse/StudentMyCourse"><i class="fa fa-list"></i><span>我的项目</span></s:a>
 		        	</s:elseif>
 		        </li>
+		        
+		        
+	        	<s:if test="#session.user!=null">
+	        		<li class="dropdown">
+		            	<s:a href="/maven-web-demo/assignment/AssignmentsIndependentPage"><i class="fa fa-tasks"></i><span>风险管理</span></s:a>
+		        	</li>
+	        	</s:if>
 
 
 	        		<li class="dropdown">

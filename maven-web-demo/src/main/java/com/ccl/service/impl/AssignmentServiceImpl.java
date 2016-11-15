@@ -62,7 +62,10 @@ public class AssignmentServiceImpl implements AssignmentService{
 	public boolean addAssignment(Assignment assignment, int cid,  String[] followers) {
 		try {
 			assignmentDao.save(assignment);
-			manageDao.addManage(cid, assignment.getAssignmentid());
+			//cid == -1表示发布尚不属于任何RA的风险
+			if (cid != -1) {
+				manageDao.addManage(cid, assignment.getAssignmentid());
+			}
 			int aid = assignment.getAssignmentid();
 			for (String fid : followers) {
 				Follow follow = new Follow();
@@ -91,7 +94,13 @@ public class AssignmentServiceImpl implements AssignmentService{
 	 */
 	@Override
 	public List<Assignment> getAssignments(int cid) {
-		return manageDao.getAssignmentsByCid(cid);
+		if (cid == -1) {
+			return assignmentDao.getAllList(Assignment.class);
+		}
+		else {
+			return manageDao.getAssignmentsByCid(cid);
+		}
+
 	}
 
 	/* (non-Javadoc)

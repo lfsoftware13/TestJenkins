@@ -253,6 +253,11 @@
 			<result name="assist">/assignment_assist.jsp</result>
 		</action>	
 		
+		<action name="AssignmentsIndependentPage" class="com.ccl.action.assignment.AssignmentsIndependentPageAction">
+			<result name="success">/assignment_independent.jsp</result>
+		</action>	
+
+		
 		<action name="AddAssignment" class="com.ccl.action.assignment.AddAssignmentAction" >
 			<result type="json">
 				<param name="root">result</param>

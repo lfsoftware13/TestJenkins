@@ -6,14 +6,9 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>风险</title>
+<title>风险管理</title>
 <%@ include  file="meta_and_script.jsp"%>
 <script src="/maven-web-demo/js/mysift.js" ></script>
-<script>
-	var cid = ${requestScope.cid};
-	var authority = ${authority};
-
-</script>
 </head>
 <body>
 <%@ include  file="navigation.jsp"%>
@@ -52,10 +47,6 @@
             <div class="col-md-6 admission_right">
 	            <input type="submit" value="发布" id="addBtn" class="course-submit-wide" />
 	       </div>		
-	       
-	       <div class="col-md-6 admission_right">
-	            <a href="/maven-web-demo/assignment/ImportAssignmentPage.action?cid=${requestScope.cid}&authority=${authority}">导入风险</a>
-	       </div>	
 	       
 	       <script>
 	   	
@@ -134,7 +125,7 @@
 	   				type : "post",
 	   				url : "/maven-web-demo/assignment/AddAssignment",
 	   				data : {
-	   					cid:cid,
+	   					cid:-1,
 	   					title:title,
 	   					content:content,
 	   					possibility:possibility,
@@ -195,23 +186,36 @@
 	   				checkBtn.setAttribute("onclick", "checkMark(this)");
 	   				row.insertCell(7).appendChild(checkBtn);
 	   				
-	   				var delBtn = document.createElement("input");
-	   				delBtn.setAttribute("type", "button");
-	   				delBtn.setAttribute("name", ass.assignmentid);
-	   				delBtn.setAttribute("value", "删除");
-	   				delBtn.setAttribute("class", "course-submit");
-	   				delBtn.setAttribute("onclick", "delAssignment(this)");
-	   				row.insertCell(8).appendChild(delBtn);
+	   				
+	   				
+		   				var delBtn = document.createElement("input");
+		   				delBtn.setAttribute("type", "button");
+		   				delBtn.setAttribute("name", ass.assignmentid);
+		   				delBtn.setAttribute("value", "删除");
+		   				delBtn.setAttribute("class", "course-submit");
+		   				if (ass.submitUid == "${sessionScope.user.uid}") {
+		   					delBtn.setAttribute("onclick", "delAssignment(this)");
+		   				}
+		   				else {
+		   					delBtn.setAttribute("onclick", "illegalAlert()");
+		   				}
+		   				
+		   				row.insertCell(8).appendChild(delBtn);
+	   				
 	   			}
 	   		}
 	   	
+	   		
+	   		function illegalAlert() {
+	   			alert("操作拒绝：没有权限");
+	   		}
 
 	   		function refreshAssignmentTable() {
 	   			$.ajax({
 	   				type : "get",
 	   				url : "/maven-web-demo/assignment/GetAssignments",
 	   				data : {
-	   					cid: cid
+	   					cid: -1
 	   				},
 	   				dataType : "json",
 	   				success : function(data) {
@@ -224,10 +228,6 @@
 	   		}
 	   		
 	   		function delAssignment(btn) {
-	   			if (authority == "1") {
-	   				alert("您不是项目负责人，无权删除风险")
-	   				return;
-	   			}
 	   			var assignmentid = btn.name;
 	   			$.ajax({
 	   				type : "post",
