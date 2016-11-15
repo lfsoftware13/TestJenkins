@@ -34,14 +34,13 @@
 		        		<s:a href="/maven-web-demo/mycourse/StudentMyCourse"><i class="fa fa-list"></i><span>我的项目</span></s:a>
 		        	</s:elseif>
 		        </li>
-		        
-		        <!-- 
-		        <s:if test="#session.teacher.isDirector==true">
+
+
 	        		<li class="dropdown">
-		            	<s:a href="/maven-web-demo/statistics.jsp"><i class="fa fa-bar-chart-o"></i><span>教学统计</span></s:a>
+		            	<s:a href="/maven-web-demo/statistics.jsp"><i class="fa fa-bar-chart-o"></i><span>统计数据</span></s:a>
 		        	</li>
-	        	</s:if>
-	        	 -->
+
+
 	        	
 	        	<s:if test="#session.teacher.isAdmin==true">
 	        		<li class="dropdown">

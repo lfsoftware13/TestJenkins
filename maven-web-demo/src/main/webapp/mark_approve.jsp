@@ -15,7 +15,10 @@
 	   	  
 		  <div class="col-md-6 admission_left">
              <div class="input-group input-group1">
-                <input class="form-control has-dark-background" id="stateDesc"  placeholder="状态描述" type="text" />
+                			<select id="stateDesc">
+								<option value="risk">风险</option>
+								<option value="problem">问题</option>
+							</select>
              </div>
              <div class="input-group input-group1">
                 <input class="form-control has-dark-background" id="content" placeholder="详细信息" type="text"/>
@@ -58,7 +61,7 @@
 	
 		var $btn = $("#submitBtn");
    		$btn.bind("click", function() {
-   			var stateDesc = $("#stateDesc").val();
+   			var stateDesc = $('#stateDesc option:selected').val();
    			var content = $("#content").val();
    			$.ajax({
    				type : "post",

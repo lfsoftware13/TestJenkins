@@ -40,6 +40,12 @@ public class SubmitReportAction extends BaseAction{
 			return SUCCESS;
 		}
 		String stateDesc = request.getParameter("stateDesc");
+		if (stateDesc.equals("risk")) {
+			stateDesc = "风险";
+		}
+		else {
+			stateDesc = "问题";
+		}
 		String content = request.getParameter("content");
 		Report report = new Report();
 		report.setAssignmentid(assignmentid);

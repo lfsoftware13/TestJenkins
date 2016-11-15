@@ -3,6 +3,7 @@
  */
 package com.ccl.service;
 
+import java.util.Date;
 import java.util.List;
 
 import com.ccl.model.Assignment;
@@ -10,6 +11,7 @@ import com.ccl.model.Mark;
 import com.ccl.model.Report;
 import com.ccl.model.Submission;
 import com.ccl.model.User;
+import com.ccl.vo.StatisticsVO;
 import com.ccl.vo.SubmissionInfoVO;
 
 /**
@@ -23,7 +25,7 @@ public interface AssignmentService {
 	public List<User> getUserInProject(int cid);
 	
 	
-	public boolean addAssignment(Assignment assignment, String[] followers);
+	public boolean addAssignment(Assignment assignment, int cid, String[] followers);
 	
 	public void delAssignment(int assignmentid);
 	
@@ -50,6 +52,16 @@ public interface AssignmentService {
 	public List<Report> getReports(int assignmentid);
 	
 	public boolean isFollower(String uid, int assignmentid);
+	
+	
+	
+	public List<Assignment> getAssignmentToImport(int cid);
+	
+	public List<StatisticsVO> getRecomendRecoAssignmentToImport(Date start, Date end, int cid);
+	
+	public List<StatisticsVO> getRecomendProbAssignmentToImport(Date start, Date end, int cid);
+	
+	public void importAssignment(int cid, int assignmentid);
 
 
 }

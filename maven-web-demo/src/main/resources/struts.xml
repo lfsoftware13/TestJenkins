@@ -258,6 +258,12 @@
 				<param name="root">result</param>
 			</result>
 		</action>
+		
+		<action name="ImportAssignment" class="com.ccl.action.assignment.ImportAssignmentAction" >
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
 
 		<action name="DelAssignment" class="com.ccl.action.assignment.DelAssignmentAction" >
 			<result type="json">

@@ -29,7 +29,6 @@ public class Assignment implements Serializable{
 	@Id
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	private int assignmentid;
-	private int cid;	//所属项目
 	private Date createdAt;
 	private String title;
 	private String content;
@@ -42,12 +41,6 @@ public class Assignment implements Serializable{
 	}
 	public void setAssignmentid(int assignmentid) {
 		this.assignmentid = assignmentid;
-	}
-	public int getCid() {
-		return cid;
-	}
-	public void setCid(int cid) {
-		this.cid = cid;
 	}
 	public Date getCreatedAt() {
 		return createdAt;

@@ -3,12 +3,14 @@
  */
 package com.ccl.action.statistics;
 
-import java.rmi.activation.ActivationSystem;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import com.ccl.Utility;
 import com.ccl.action.BaseAction;
 import com.ccl.service.StatisticsService;
 import com.ccl.vo.StatisticsVO;
@@ -30,23 +32,23 @@ public class GetStatisticsAction extends BaseAction{
 	@Autowired
 	private StatisticsService service;
 	
-	private List<StatisticsVO> result;
+	private List<List<StatisticsVO>> result;	//0是响应最多，1是问题最多
 	
 	public String execute() {
-		int startYear = Integer.parseInt(request.getParameter("startYear"));
-		int startMonth = Integer.parseInt(request.getParameter("startMonth"));
-		int endYear = Integer.parseInt(request.getParameter("endYear"));
-		int endMonth = Integer.parseInt(request.getParameter("endMonth"));
-		setResult(service.getStatics(startYear, startMonth, endYear, endMonth));
-		System.out.println(result.size());
+		Date start = Utility.parseDate(request.getParameter("startDate"));
+		Date end = Utility.parseDate(request.getParameter("endDate"));
+		List<List<StatisticsVO>> result = new ArrayList<List<StatisticsVO>>();
+		result.add(service.getRecoStatics(start, end));
+		result.add(service.getProbStatics(start, end));
+		setResult(result);
 		return SUCCESS;
 	}
 
-	public List<StatisticsVO> getResult() {
+	public List<List<StatisticsVO>> getResult() {
 		return result;
 	}
 
-	public void setResult(List<StatisticsVO> result) {
+	public void setResult(List<List<StatisticsVO>> result) {
 		this.result = result;
 	}
 

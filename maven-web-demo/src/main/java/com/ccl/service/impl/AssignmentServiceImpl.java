@@ -3,25 +3,32 @@
  */
 package com.ccl.service.impl;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map.Entry;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ccl.dao.AssignmentDao;
 import com.ccl.dao.FollowDao;
+import com.ccl.dao.ManageDao;
 import com.ccl.dao.MarkDao;
 import com.ccl.dao.ReportDao;
 import com.ccl.dao.SelectionDao;
 import com.ccl.dao.SubmissionDao;
 import com.ccl.model.Assignment;
 import com.ccl.model.Follow;
+import com.ccl.model.Manage;
 import com.ccl.model.Mark;
 import com.ccl.model.Report;
 import com.ccl.model.Submission;
 import com.ccl.model.User;
 import com.ccl.service.AssignmentService;
+import com.ccl.vo.StatisticsVO;
 import com.ccl.vo.SubmissionInfoVO;
 
 /**
@@ -45,14 +52,17 @@ public class AssignmentServiceImpl implements AssignmentService{
 	private FollowDao followDao;
 	@Autowired
 	private SelectionDao selectionDao;
+	@Autowired
+	private ManageDao manageDao;
 
 	/* (non-Javadoc)
 	 * @see com.ccl.service.TeachCourseService#addAssignment(com.ccl.model.Assignment)
 	 */
 	@Override
-	public boolean addAssignment(Assignment assignment, String[] followers) {
+	public boolean addAssignment(Assignment assignment, int cid,  String[] followers) {
 		try {
 			assignmentDao.save(assignment);
+			manageDao.addManage(cid, assignment.getAssignmentid());
 			int aid = assignment.getAssignmentid();
 			for (String fid : followers) {
 				Follow follow = new Follow();
@@ -81,7 +91,7 @@ public class AssignmentServiceImpl implements AssignmentService{
 	 */
 	@Override
 	public List<Assignment> getAssignments(int cid) {
-		return assignmentDao.getListByColumn(Assignment.class, "cid",  cid);
+		return manageDao.getAssignmentsByCid(cid);
 	}
 
 	/* (non-Javadoc)
@@ -168,6 +178,90 @@ public class AssignmentServiceImpl implements AssignmentService{
 		return isFollower;
 	}
 
+	@Override
+	public List<Assignment> getAssignmentToImport(int cid) {
+		return manageDao.getAssignmentsToImportByCid(cid);
+	}
 
+	@Override
+	public List<StatisticsVO> getRecomendRecoAssignmentToImport(Date start, Date end, int cid) {
+		List<Report> reports = manageDao.getReportsExceptGivenCid(cid);
+		HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
+		for (Report r : reports) {
+			if (r.getCreatedAt().before(end) && r.getCreatedAt().after(start)) {
+				map.put(r.getAssignmentid(), map.getOrDefault(r.getAssignmentid(), 0) + 1);
+			}
+		}
+		List<StatisticsVO> stats = new ArrayList<StatisticsVO>();
+		for (Entry<Integer, Integer> e : map.entrySet()) {
+			int assignmentid = e.getKey();
+			stats.add(new StatisticsVO(assignmentDao.findById(Assignment.class, assignmentid), e.getValue()));
+		}
+		stats.sort(new Comparator<StatisticsVO>(){
+			public int compare(StatisticsVO v1, StatisticsVO v2) {
+				return v2.count - v1.count;
+			}
+		});
+
+		if (stats.size() <= 5) {
+			return stats;
+		}
+		else {
+			return stats.subList(0, 5);
+		}
+	}
+
+	@Override
+	public List<StatisticsVO> getRecomendProbAssignmentToImport(Date start, Date end, int cid) {
+		List<Report> reports = manageDao.getReportsExceptGivenCid(cid);
+		HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
+		for (Report r : reports) {
+			if (r.getCreatedAt().before(end) && r.getCreatedAt().after(start) && r.getStateDesc().equals("问题")) {
+				map.put(r.getAssignmentid(), map.getOrDefault(r.getAssignmentid(), 0) + 1);
+			}
+		}
+		List<StatisticsVO> stats = new ArrayList<StatisticsVO>();
+		for (Entry<Integer, Integer> e : map.entrySet()) {
+			int assignmentid = e.getKey();
+			stats.add(new StatisticsVO(assignmentDao.findById(Assignment.class, assignmentid), e.getValue()));
+		}
+		stats.sort(new Comparator<StatisticsVO>(){
+			public int compare(StatisticsVO v1, StatisticsVO v2) {
+				return v2.count - v1.count;
+			}
+		});
+
+		if (stats.size() <= 5) {
+			return stats;
+		}
+		else {
+			return stats.subList(0, 5);
+		}
+	}
+
+	@Override
+	public void importAssignment(int cid, int assignmentid) {
+		Manage m = new Manage();
+		m.setAssignmentid(assignmentid);
+		m.setCid(cid);
+		m.setCreatedAt(new Date());
+		manageDao.save(m);
+		
+		//此风险的跟踪者成为此RA的参与者
+		List<User> followers = followDao.getFollowUserByAssignmentid(assignmentid);
+		List<User> attend = selectionDao.getAttendUserByCid(cid);
+		for (User f : followers) {
+			boolean isAttend = false;
+			for (User a : attend) {
+				if (f.getUid().equals(a.getUid())) {
+					isAttend = true;
+					break;
+				}
+			}
+			if (!isAttend) {
+				selectionDao.addSelection(cid, f.getUid());
+			}
+		}
+	}
 
 }

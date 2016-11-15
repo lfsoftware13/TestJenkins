@@ -47,7 +47,6 @@ public class AddAssignmentAction extends BaseAction{
 		String[] followers = request.getParameter("followers").split("-");
 		
 		Assignment ass = new Assignment();
-		ass.setCid(cid);
 		ass.setTitle(title);
 		ass.setCreatedAt(new Date());
 		ass.setContent(content);
@@ -56,7 +55,7 @@ public class AddAssignmentAction extends BaseAction{
 		ass.setSubmitUid(Utility.getUser(request).getUid());
 		ass.setTrig(trig);
 		
-		boolean flag = service.addAssignment(ass, followers);
+		boolean flag = service.addAssignment(ass, cid, followers);
 		if (flag) {
 			setResult("success");
 			noticeService.sendAssignmentNotice(cid);
