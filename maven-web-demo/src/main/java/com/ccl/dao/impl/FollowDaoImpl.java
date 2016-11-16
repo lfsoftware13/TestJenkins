@@ -51,6 +51,17 @@ public class FollowDaoImpl extends BaseDaoImpl<Follow> implements FollowDao{
 		List<User> result = getSession().createQuery(sql).list();
 		return result;
 	}
+	
+	@Override
+	public Follow getFollowByAssignmentidAndUid(int assignmentid, String uid) {
+		String sql = "select a from Follow a where a.uid='"+uid+"' and a.assignmentid='"+assignmentid+"'";
+		@SuppressWarnings("unchecked")
+		List<Follow> result = getSession().createQuery(sql).list();
+		if(result==null||result.size()<=0){
+			return null;
+		}
+		return result.get(0);
+	}
 
 	/* (non-Javadoc)
 	 * @see com.ccl.dao.AssistDao#getUserToAssistByCid(int)

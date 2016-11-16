@@ -55,6 +55,12 @@ public interface AssignmentService {
 	
 	public List<Report> getReports(int assignmentid);
 	
+	public List<User> getFollowsByAssignmentid(int assignmentid);
+	
+	public boolean addFollow(int aid, String fid);
+	
+	public boolean delFollow(int aid, String fid);
+	
 	public boolean isFollower(String uid, int assignmentid);
 	
 	

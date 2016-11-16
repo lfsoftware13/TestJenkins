@@ -37,6 +37,10 @@ public class AddAssignmentAction extends BaseAction{
 	
 	private Assignment assignment;
 	
+	private int aid;
+	
+	private String fid;
+	
 	public String execute() {
 		
 			
@@ -90,6 +94,40 @@ public class AddAssignmentAction extends BaseAction{
 		
 		return SUCCESS;
 	}
+	
+	public String addFollow(){
+		boolean flag=service.addFollow(aid, fid);
+		if(flag){
+			setResult("success");
+		}else{
+			setResult("fail");
+		}
+		return SUCCESS;
+	}
+	
+	public String delFollow(){
+		
+		if(Utility.getUser(request).getUid().equals(fid)){
+			setResult("fail_self");
+			return SUCCESS;
+		}
+		assignment=service.getAssignment(aid);
+		if(assignment==null){
+			setResult("fail_assignment_null");
+			return SUCCESS;
+		}
+		if(assignment.getSubmitUid().equals(fid)){
+			setResult("fail_creator");
+			return SUCCESS;
+		}
+		boolean flag=service.delFollow(aid, fid);
+		if(flag){
+			setResult("success");
+		}else{
+			setResult("fail");
+		}
+		return SUCCESS;
+	}
 
 	public String getResult() {
 		return result;
@@ -121,6 +159,22 @@ public class AddAssignmentAction extends BaseAction{
 
 	public void setAssignment(Assignment assignment) {
 		this.assignment = assignment;
+	}
+
+	public int getAid() {
+		return aid;
+	}
+
+	public void setAid(int aid) {
+		this.aid = aid;
+	}
+
+	public String getFid() {
+		return fid;
+	}
+
+	public void setFid(String fid) {
+		this.fid = fid;
 	}
 
 }

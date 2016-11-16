@@ -20,6 +20,8 @@ public interface FollowDao extends BaseDao<Follow>{
 	
 	public List<User> getFollowUserByAssignmentid(int assignmentid);
 	
+	public Follow getFollowByAssignmentidAndUid(int assignmentid, String uid) ;
+	
 	public List<User> getUserToFollowByAssignmentid(int assignmentid);
 
 }

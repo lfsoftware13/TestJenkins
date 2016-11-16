@@ -253,7 +253,7 @@
 	   		
 	   		function checkMark(btn) {
 	   			var assignmentid = btn.name;
-	   			window.location.href="/maven-web-demo/assignment/MarksApprovePage.action?assignmentid=" + assignmentid;
+	   			window.location.href="/maven-web-demo/assignment/MarksApprovePage.action?assignmentid=" + assignmentid+"&cid=-1";
 	   		}
 	   		
 	   		function format(date) {

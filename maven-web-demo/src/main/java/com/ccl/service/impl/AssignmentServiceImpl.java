@@ -181,6 +181,34 @@ public class AssignmentServiceImpl implements AssignmentService{
 		return reportDao.getListByColumn(Report.class, "assignmentid", assignmentid);
 		
 	}
+	
+	@Override
+	public List<User> getFollowsByAssignmentid(int assignmentid){
+		return followDao.getFollowUserByAssignmentid(assignmentid);
+	}
+	
+	@Override
+	public boolean addFollow(int aid, String fid){
+		
+		Follow fol=followDao.getFollowByAssignmentidAndUid(aid, fid);
+		boolean flag=false;
+		if(fol==null){
+			flag=followDao.addFollow(aid, fid);
+		}else{
+			flag=true;
+		}
+		return flag;
+	}
+	
+	@Override
+	public boolean delFollow(int aid, String fid){
+		Follow fol=followDao.getFollowByAssignmentidAndUid(aid, fid);
+		if(fol!=null){
+			followDao.delete(fol);
+		}
+		return true;
+	}
+	
 
 	/* (non-Javadoc)
 	 * @see com.ccl.service.AssignmentService#isFollower(java.lang.String, int)
