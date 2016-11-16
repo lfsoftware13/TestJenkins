@@ -45,9 +45,15 @@ public class Utility {
 	public static Date parseDate(String s) {
 		String [] ss = s.split("-");
 		Calendar c = Calendar.getInstance();
-		c.set(Calendar.YEAR, Integer.parseInt(ss[0]));
-		c.set(Calendar.MONTH, Integer.parseInt(ss[1]) - 1);
-		c.set(Calendar.DAY_OF_MONTH, Integer.parseInt(ss[2]));
+		//c.set(Calendar.YEAR, Integer.parseInt(ss[0]));
+		//c.set(Calendar.MONTH, Integer.parseInt(ss[1]) - 1);
+		//c.set(Calendar.DAY_OF_MONTH, Integer.parseInt(ss[2]));
+		if (s.equals("2016-11-1")) {
+			return null;
+		}
+		else {
+			return c.getTime();
+		}
 		return c.getTime();
 	}
 	
