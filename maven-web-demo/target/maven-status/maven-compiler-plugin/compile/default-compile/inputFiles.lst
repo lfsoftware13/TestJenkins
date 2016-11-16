@@ -2,6 +2,7 @@ G:\mavenproject\TestJenkins\maven-web-demo\src\main\java\com\ccl\action\user\Use
 G:\mavenproject\TestJenkins\maven-web-demo\src\main\java\com\ccl\service\ScheduleService.java
 G:\mavenproject\TestJenkins\maven-web-demo\src\main\java\com\ccl\dao\ReportDao.java
 G:\mavenproject\TestJenkins\maven-web-demo\src\main\java\com\ccl\action\assignment\ApproveReportAction.java
+G:\mavenproject\TestJenkins\maven-web-demo\src\main\java\com\ccl\action\assignment\ImportAssignmentPageAction.java
 G:\mavenproject\TestJenkins\maven-web-demo\src\main\java\com\ccl\action\assignment\DownloadAssignmentsAction.java
 G:\mavenproject\TestJenkins\maven-web-demo\src\main\java\com\ccl\dao\MarkDao.java
 G:\mavenproject\TestJenkins\maven-web-demo\src\main\java\com\ccl\action\assignment\MarksPageAction.java
@@ -25,10 +26,12 @@ G:\mavenproject\TestJenkins\maven-web-demo\src\main\java\com\ccl\dao\impl\Teache
 G:\mavenproject\TestJenkins\maven-web-demo\src\main\java\com\ccl\vo\ScheduledCourseVO.java
 G:\mavenproject\TestJenkins\maven-web-demo\src\main\java\com\ccl\dao\AssignmentDao.java
 G:\mavenproject\TestJenkins\maven-web-demo\src\main\java\com\ccl\dao\SemesterDao.java
+G:\mavenproject\TestJenkins\maven-web-demo\src\main\java\com\ccl\model\Manage.java
 G:\mavenproject\TestJenkins\maven-web-demo\src\main\java\com\ccl\service\impl\UserManageServiceImpl.java
 G:\mavenproject\TestJenkins\maven-web-demo\src\main\java\com\ccl\dao\impl\SemesterDaoImpl.java
 G:\mavenproject\TestJenkins\maven-web-demo\src\main\java\com\ccl\service\StatisticsService.java
 G:\mavenproject\TestJenkins\maven-web-demo\src\main\java\com\ccl\vo\SemesterVO.java
+G:\mavenproject\TestJenkins\maven-web-demo\src\main\java\com\ccl\action\assignment\AssignmentsIndependentPageAction.java
 G:\mavenproject\TestJenkins\maven-web-demo\src\main\java\com\ccl\action\teachcourse\GetAssistedStudentAction.java
 G:\mavenproject\TestJenkins\maven-web-demo\src\main\java\com\ccl\action\assignment\UploadReviewAction.java
 G:\mavenproject\TestJenkins\maven-web-demo\src\main\java\com\ccl\action\user\UserShowAllTeacherAction.java
@@ -48,7 +51,10 @@ G:\mavenproject\TestJenkins\maven-web-demo\src\main\java\com\ccl\dao\FollowDao.j
 G:\mavenproject\TestJenkins\maven-web-demo\src\main\java\com\ccl\action\coursedetail\CourseDetailPageAction.java
 G:\mavenproject\TestJenkins\maven-web-demo\src\main\java\com\ccl\dao\ScheduleDao.java
 G:\mavenproject\TestJenkins\maven-web-demo\src\main\java\com\ccl\action\teachcourse\SelectionManagePageAction.java
+G:\mavenproject\TestJenkins\maven-web-demo\src\main\java\com\ccl\action\assignment\GetAssignmentsToImportAction.java
+G:\mavenproject\TestJenkins\maven-web-demo\src\main\java\com\ccl\action\assignment\GetRecommendAssignmentsAction.java
 G:\mavenproject\TestJenkins\maven-web-demo\src\main\java\com\ccl\service\TaskJobService.java
+G:\mavenproject\TestJenkins\maven-web-demo\src\main\java\com\ccl\dao\ManageDao.java
 G:\mavenproject\TestJenkins\maven-web-demo\src\main\java\com\ccl\model\Selection.java
 G:\mavenproject\TestJenkins\maven-web-demo\src\main\java\com\ccl\action\user\UserSearchTeacherAction.java
 G:\mavenproject\TestJenkins\maven-web-demo\src\main\java\com\ccl\dao\BaseDao.java
@@ -67,6 +73,7 @@ G:\mavenproject\TestJenkins\maven-web-demo\src\main\java\com\ccl\dao\StudentDao.
 G:\mavenproject\TestJenkins\maven-web-demo\src\main\java\com\ccl\model\Course.java
 G:\mavenproject\TestJenkins\maven-web-demo\src\main\java\com\ccl\Constants.java
 G:\mavenproject\TestJenkins\maven-web-demo\src\main\java\com\ccl\service\AttendCourseService.java
+G:\mavenproject\TestJenkins\maven-web-demo\src\main\java\com\ccl\dao\impl\ManageDaoImpl.java
 G:\mavenproject\TestJenkins\maven-web-demo\src\main\java\com\ccl\model\Assignment.java
 G:\mavenproject\TestJenkins\maven-web-demo\src\main\java\com\ccl\service\impl\SemesterServiceImpl.java
 G:\mavenproject\TestJenkins\maven-web-demo\src\main\java\com\ccl\service\MyNoticeService.java
@@ -133,6 +140,7 @@ G:\mavenproject\TestJenkins\maven-web-demo\src\main\java\com\ccl\JWStub.java
 G:\mavenproject\TestJenkins\maven-web-demo\src\main\java\com\ccl\action\schedule\SchedulePageAction.java
 G:\mavenproject\TestJenkins\maven-web-demo\src\main\java\com\ccl\action\user\LoginPageAction.java
 G:\mavenproject\TestJenkins\maven-web-demo\src\main\java\com\ccl\dao\impl\SubmissionDaoImpl.java
+G:\mavenproject\TestJenkins\maven-web-demo\src\main\java\com\ccl\action\assignment\ImportAssignmentAction.java
 G:\mavenproject\TestJenkins\maven-web-demo\src\main\java\com\ccl\action\teachcourse\AddAssistAction.java
 G:\mavenproject\TestJenkins\maven-web-demo\src\main\java\com\ccl\action\assignment\SubmitMarkAction.java
 G:\mavenproject\TestJenkins\maven-web-demo\src\main\java\com\ccl\model\Mark.java
