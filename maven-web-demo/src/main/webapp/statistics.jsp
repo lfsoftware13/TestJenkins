@@ -73,6 +73,8 @@
 		function query() {
 			var start = $("input[name=startDate]").val();
 			var end = $("input[name=endDate]").val();
+			alert(start);
+			alert(end);
 
 			$.ajax({
 				type : "get",
