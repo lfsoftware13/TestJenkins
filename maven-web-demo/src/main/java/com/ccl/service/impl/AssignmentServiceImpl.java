@@ -90,6 +90,16 @@ public class AssignmentServiceImpl implements AssignmentService{
 		
 	}
 	
+	@Override
+	public void updateAssignment(Assignment assignment){
+		assignmentDao.update(assignment);
+	}
+	
+	@Override
+	public Assignment getAssignment(int aid){
+		return assignmentDao.findById(Assignment.class, aid);
+	}
+	
 	/* (non-Javadoc)
 	 * @see com.ccl.service.TeachCourseService#getAssignments(int)
 	 */

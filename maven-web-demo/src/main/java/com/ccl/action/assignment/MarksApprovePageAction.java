@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import com.ccl.action.BaseAction;
+import com.ccl.model.Assignment;
 import com.ccl.model.Report;
 import com.ccl.service.AssignmentService;
 
@@ -34,10 +35,13 @@ public class MarksApprovePageAction extends BaseAction{
 	
 	private int assignmentid;
 	
+	private Assignment assignment;
+	
 	
 	public String execute() {
 		assignmentid = Integer.parseInt(request.getParameter("assignmentid"));
 		reports = service.getReports(assignmentid);
+		assignment=service.getAssignment(assignmentid);
 		return SUCCESS;
 	}
 
@@ -80,6 +84,14 @@ public class MarksApprovePageAction extends BaseAction{
 
 	public void setAssignmentid(int assignmentid) {
 		this.assignmentid = assignmentid;
+	}
+
+	public Assignment getAssignment() {
+		return assignment;
+	}
+
+	public void setAssignment(Assignment assignment) {
+		this.assignment = assignment;
 	}
 
 

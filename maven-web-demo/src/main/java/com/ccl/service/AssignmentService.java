@@ -28,6 +28,10 @@ public interface AssignmentService {
 	public boolean addAssignment(Assignment assignment, int cid, String[] followers);
 	
 	public void delAssignment(int assignmentid);
+
+	public void updateAssignment(Assignment assignment);
+	
+	public Assignment getAssignment(int aid);
 	
 	public List<Assignment> getAssignments(int cid);
 	
