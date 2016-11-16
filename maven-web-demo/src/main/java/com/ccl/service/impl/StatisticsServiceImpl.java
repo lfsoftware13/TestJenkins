@@ -4,7 +4,7 @@
 package com.ccl.service.impl;
 
 import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
@@ -52,7 +52,7 @@ public class StatisticsServiceImpl implements StatisticsService{
 			int assignmentid = e.getKey();
 			result.add(new StatisticsVO(assignmentDao.findById(Assignment.class, assignmentid), e.getValue()));
 		}
-		result.sort(new Comparator<StatisticsVO>(){
+		Collections.sort(result, new Comparator<StatisticsVO>(){
 			public int compare(StatisticsVO v1, StatisticsVO v2) {
 				return v2.count - v1.count;
 			}
@@ -81,7 +81,7 @@ public class StatisticsServiceImpl implements StatisticsService{
 			int assignmentid = e.getKey();
 			result.add(new StatisticsVO(assignmentDao.findById(Assignment.class, assignmentid), e.getValue()));
 		}
-		result.sort(new Comparator<StatisticsVO>(){
+		Collections.sort(result, new Comparator<StatisticsVO>(){
 			public int compare(StatisticsVO v1, StatisticsVO v2) {
 				return v2.count - v1.count;
 			}
