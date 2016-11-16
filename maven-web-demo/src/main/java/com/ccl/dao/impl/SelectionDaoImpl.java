@@ -47,6 +47,17 @@ public class SelectionDaoImpl extends BaseDaoImpl<Selection> implements Selectio
 	public void delSelection(int cid, String uid) {
 		deleteByColumns(Selection.class, "cid", cid, "uid", uid);
 	}
+	
+	@Override
+	public Selection getSelectionByCidAndUid(int cid, String uid){
+		String sql = "select s from Selection s where s.cid="+cid+" and s.uid='"+uid+"'";
+		@SuppressWarnings("unchecked")
+		List<Selection> result = getSession().createQuery(sql).list();
+		if(result==null||result.size()<=0){
+			return null;
+		}
+		return result.get(0);
+	}
 
 	/* (non-Javadoc)
 	 * @see com.ccl.dao.SelectionDao#getAttendUserByCid(int)

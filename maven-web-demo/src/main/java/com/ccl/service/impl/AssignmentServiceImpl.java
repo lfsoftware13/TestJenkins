@@ -26,6 +26,7 @@ import com.ccl.model.Follow;
 import com.ccl.model.Manage;
 import com.ccl.model.Mark;
 import com.ccl.model.Report;
+import com.ccl.model.Selection;
 import com.ccl.model.Submission;
 import com.ccl.model.User;
 import com.ccl.service.AssignmentService;
@@ -190,10 +191,20 @@ public class AssignmentServiceImpl implements AssignmentService{
 	@Override
 	public boolean addFollow(int aid, String fid){
 		
+		
 		Follow fol=followDao.getFollowByAssignmentidAndUid(aid, fid);
 		boolean flag=false;
 		if(fol==null){
 			flag=followDao.addFollow(aid, fid);
+			if(flag){
+				List<Integer> cidList=manageDao.getCourseIdByAssignemntId(aid);
+				for(int i=0;i<cidList.size();i++){
+					Selection s=selectionDao.getSelectionByCidAndUid(cidList.get(i), fid);
+					if(s==null){
+						selectionDao.addSelection(cidList.get(i), fid);
+					}
+				}
+			}
 		}else{
 			flag=true;
 		}

@@ -21,6 +21,8 @@ public interface ManageDao extends BaseDao<Manage>{
 	
 	public void delManage(int cid, int assignmentid);
 	
+	public List<Integer> getCourseIdByAssignemntId(int aid);
+	
 	public List<Assignment> getAssignmentsByCid(int cid);
 	
 	public List<Assignment> getAssignmentsToImportByCid(int cid);

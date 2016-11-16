@@ -20,6 +20,8 @@ public interface SelectionDao extends BaseDao<Selection>{
 	
 	public void delSelection(int cid, String uid);
 	
+	public Selection getSelectionByCidAndUid(int cid, String uid);
+	
 	public List<User> getAttendUserByCid(int cid);
 	
 	public List<User> getUserToAttendByCid(int cid);

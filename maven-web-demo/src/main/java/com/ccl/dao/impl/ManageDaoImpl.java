@@ -3,6 +3,7 @@
  */
 package com.ccl.dao.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -42,6 +43,17 @@ public class ManageDaoImpl extends BaseDaoImpl<Manage> implements ManageDao{
 	public void delManage(int raid, int rid) {
 		deleteByColumns(Manage.class, "raid", raid, "rid", rid);
 		
+	}
+	
+	@Override
+	public List<Integer> getCourseIdByAssignemntId(int aid){
+		String sql = "select m.cid from Manage m where m.assignmentid="+aid+"";
+		@SuppressWarnings("unchecked")
+		List<Integer> result = getSession().createQuery(sql).list();
+		if(result==null){
+			return new ArrayList<Integer>();
+		}
+		return result;
 	}
 
 	@Override
