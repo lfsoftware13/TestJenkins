@@ -41,7 +41,10 @@ public class StatisticsServiceImpl implements StatisticsService{
 		HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
 		for (Report r : reports) {
 			if (r.getCreatedAt().before(end) && r.getCreatedAt().after(start)) {
-				map.put(r.getAssignmentid(), map.getOrDefault(r.getAssignmentid(), 0) + 1);
+				if (!map.containsKey(r.getAssignmentid())) {
+					map.put(r.getAssignmentid(), 0);
+				}
+				map.put(r.getAssignmentid(), map.get(r.getAssignmentid()) + 1);
 			}
 		}
 		List<StatisticsVO> result = new ArrayList<StatisticsVO>();
@@ -67,7 +70,10 @@ public class StatisticsServiceImpl implements StatisticsService{
 		HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
 		for (Report r : reports) {
 			if (r.getCreatedAt().before(end) && r.getCreatedAt().after(start) && r.getStateDesc().equals("问题")) {
-				map.put(r.getAssignmentid(), map.getOrDefault(r.getAssignmentid(), 0) + 1);
+				if (!map.containsKey(r.getAssignmentid())) {
+					map.put(r.getAssignmentid(), 0);
+				}
+				map.put(r.getAssignmentid(), map.get(r.getAssignmentid()) + 1);
 			}
 		}
 		List<StatisticsVO> result = new ArrayList<StatisticsVO>();
