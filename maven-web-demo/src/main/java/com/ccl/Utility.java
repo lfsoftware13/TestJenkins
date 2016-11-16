@@ -54,7 +54,7 @@ public class Utility {
 		else {
 			return c.getTime();
 		}
-		return c.getTime();
+		//return c.getTime();
 	}
 	
 	public static String formatDateTime(Date d) {
