@@ -50,7 +50,10 @@ public class StatisticsServiceImpl implements StatisticsService{
 		List<StatisticsVO> result = new ArrayList<StatisticsVO>();
 		for (Entry<Integer, Integer> e : map.entrySet()) {
 			int assignmentid = e.getKey();
-			result.add(new StatisticsVO(assignmentDao.findById(Assignment.class, assignmentid), e.getValue()));
+			Assignment as=assignmentDao.findById(Assignment.class, assignmentid);
+			if(as!=null){
+				result.add(new StatisticsVO(as, e.getValue()));
+			}
 		}
 		Collections.sort(result, new Comparator<StatisticsVO>(){
 			public int compare(StatisticsVO v1, StatisticsVO v2) {
@@ -79,7 +82,10 @@ public class StatisticsServiceImpl implements StatisticsService{
 		List<StatisticsVO> result = new ArrayList<StatisticsVO>();
 		for (Entry<Integer, Integer> e : map.entrySet()) {
 			int assignmentid = e.getKey();
-			result.add(new StatisticsVO(assignmentDao.findById(Assignment.class, assignmentid), e.getValue()));
+			Assignment as=assignmentDao.findById(Assignment.class, assignmentid);
+			if(as!=null){
+				result.add(new StatisticsVO(as, e.getValue()));
+			}
 		}
 		Collections.sort(result, new Comparator<StatisticsVO>(){
 			public int compare(StatisticsVO v1, StatisticsVO v2) {
