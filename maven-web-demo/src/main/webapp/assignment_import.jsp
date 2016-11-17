@@ -54,11 +54,11 @@
 
 			<div class="col-md-3 admission_left">
 	             <div class="input-group input-group1">
-	                <input type="text"  name="startDate" placeholder="开始日期" onfocus="startCalendar.showMoreDay = false;startCalendar.show(this);"
+	                <input type="text" id="startDate" name="startDate" placeholder="开始日期" onfocus="startCalendar.showMoreDay = false;startCalendar.show(this);"
 									class="frm-field required" />
 	             </div>
 	             <div class="input-group input-group1">
-	                 <input type="text" name="endDate"  placeholder="结束日期" onfocus="endCalendar.showMoreDay = false;endCalendar.show(this);"
+	                 <input type="text" id="endDate" name="endDate"  placeholder="结束日期" onfocus="endCalendar.showMoreDay = false;endCalendar.show(this);"
 									class="frm-field required" />
 	             </div>
 
@@ -69,8 +69,13 @@
 			
 			<br/>
 			
-			<div class="clearfix"> </div>
-			<h3>被识别最多的风险</h3>	       
+			<div class="clearfix" > </div>
+			<h3 style="margin-top:30px;">被识别最多的风险</h3>	       
+	      <div class="clearfix"> </div>
+	      
+	      <input type="button" value="导入" id="importBtn" class="course-submit-wide" onclick="importSomeAssignment();" />
+	      
+	      
 	      <div class="clearfix"> </div>
 	   	  <table class="timetable" id="recommendRecoTable">
 							    <thead>
@@ -134,10 +139,17 @@
 	       
 	       <script>
 	       
+	       initDate();
+	   	function initDate(){
+	   		var d=new Date();
+	   		var year=d.getFullYear();
+	   		var month=d.getMonth();
+	   		var s=new Date(year, (month+1), 0);
+	   		var day=s.getDate();
+	   		$("#startDate").val(year+"-"+(month+1)+"-"+1);
+	   		$("#endDate").val(year+"-"+(month+1)+"-"+day);
+	   	}
 	       
-	   	
-	   	
-
 	   	refreshAllTable();
 	   	
 	   	
@@ -191,13 +203,30 @@
 	   						document.createTextNode(format(ass.createdAt)));	   				
 	   				
 	   				var importBtn = document.createElement("input");
-	   				importBtn.setAttribute("type", "button");
+	   				importBtn.setAttribute("type", "checkbox");
 	   				importBtn.setAttribute("name", ass.assignmentid);
 	   				importBtn.setAttribute("value", "导入");
 	   				importBtn.setAttribute("class", "course-submit");
-	   				importBtn.setAttribute("onclick", "importAssignment(this)");
+	   				importBtn.setAttribute("onclick", "syncCheckbox(this)");
 	   				row.insertCell(7).appendChild(importBtn);
 	   			}
+	   		}
+	   		
+	   		function syncCheckbox(a){
+	   			
+	   			var isCheck=0;
+	   			if($(a).prop("checked")==true){
+	   				isCheck=1;
+	   			}
+	   			var cs=$("input[type='checkbox']").each(function(index, elem){
+	   				if($(this).attr("name")==$(a).attr("name")){
+	   					if(isCheck==1){
+	   						$(this).prop("checked", true);
+	   					}else{
+	   						$(this).prop("checked", false);
+	   					}
+	   				}
+	   			});
 	   		}
 	   		
 	   		
@@ -231,11 +260,11 @@
 	   						document.createTextNode(data[i].count));
 	   				
 	   				var importBtn = document.createElement("input");
-	   				importBtn.setAttribute("type", "button");
+	   				importBtn.setAttribute("type", "checkbox");
 	   				importBtn.setAttribute("name", ass.assignmentid);
 	   				importBtn.setAttribute("value", "导入");
 	   				importBtn.setAttribute("class", "course-submit");
-	   				importBtn.setAttribute("onclick", "importAssignment(this)");
+	   				importBtn.setAttribute("onclick", "syncCheckbox(this)");
 	   				row.insertCell(8).appendChild(importBtn);
 	   			}
 	   		}
@@ -270,11 +299,11 @@
 	   						document.createTextNode(data[i].count));
 	   				
 	   				var importBtn = document.createElement("input");
-	   				importBtn.setAttribute("type", "button");
+	   				importBtn.setAttribute("type", "checkbox");
 	   				importBtn.setAttribute("name", ass.assignmentid);
 	   				importBtn.setAttribute("value", "导入");
 	   				importBtn.setAttribute("class", "course-submit");
-	   				importBtn.setAttribute("onclick", "importAssignment(this)");
+	   				importBtn.setAttribute("onclick", "syncCheckbox(this)");
 	   				row.insertCell(8).appendChild(importBtn);
 	   			}
 	   		}
@@ -302,6 +331,41 @@
 	   					alert("系统异常，请稍后重试！")
 	   				}
 	   			});
+	   		}
+	   		
+	   		function importSomeAssignment(){
+	   			var cid="<s:property value='cid' />";
+	   			var count=0;
+	   			var j={};
+	   			j["cid"]=cid;
+	   			
+	   			$("input[type='checkbox']").each(function(index, elem){
+	   				if($(this).prop("checked")){
+		   				j["alist["+count+"]"]=$(this).attr("name");
+		   				count++;
+	   				}
+	   			});
+	   			
+	   			$.ajax({
+	   				type : "post",
+	   				url : "/maven-web-demo/assignment/ImportAssignment!importSomeAssignment",
+	   				data : j,
+	   				dataType : "json",
+	   				success : function(data) {
+	   					if (data == "success") {
+	   						alert("导入成功");
+	   						window.location.href="/maven-web-demo/assignment/AssignmentsPage.action?authority=" + authority + "&cid=" +cid;
+	   					} else if(data=="fail_project_null"){
+	   						alert("导入失败:计划不存在");
+	   					} else {
+	   						alert("导入失败：系统异常。")
+	   					}
+	   				},
+	   				error : function() {
+	   					alert("系统异常，请稍后重试！")
+	   				}
+	   			});
+	   			
 	   		}
 	   		
 	   		function format(date) {

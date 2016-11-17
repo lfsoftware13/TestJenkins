@@ -272,7 +272,10 @@ public class AssignmentServiceImpl implements AssignmentService{
 		List<StatisticsVO> stats = new ArrayList<StatisticsVO>();
 		for (Entry<Integer, Integer> e : map.entrySet()) {
 			int assignmentid = e.getKey();
-			stats.add(new StatisticsVO(assignmentDao.findById(Assignment.class, assignmentid), e.getValue()));
+			Assignment as=assignmentDao.findById(Assignment.class, assignmentid);
+			if(as!=null){
+				stats.add(new StatisticsVO(as, e.getValue()));
+			}
 		}
 		Collections.sort(stats, new Comparator<StatisticsVO>(){
 			public int compare(StatisticsVO v1, StatisticsVO v2) {
@@ -303,7 +306,10 @@ public class AssignmentServiceImpl implements AssignmentService{
 		List<StatisticsVO> stats = new ArrayList<StatisticsVO>();
 		for (Entry<Integer, Integer> e : map.entrySet()) {
 			int assignmentid = e.getKey();
-			stats.add(new StatisticsVO(assignmentDao.findById(Assignment.class, assignmentid), e.getValue()));
+			Assignment as=assignmentDao.findById(Assignment.class, assignmentid);
+			if(as!=null){
+				stats.add(new StatisticsVO(as, e.getValue()));
+			}
 		}
 		Collections.sort(stats, new Comparator<StatisticsVO>(){
 			public int compare(StatisticsVO v1, StatisticsVO v2) {
@@ -321,25 +327,28 @@ public class AssignmentServiceImpl implements AssignmentService{
 
 	@Override
 	public void importAssignment(int cid, int assignmentid) {
-		Manage m = new Manage();
-		m.setAssignmentid(assignmentid);
-		m.setCid(cid);
-		m.setCreatedAt(new Date());
-		manageDao.save(m);
-		
-		//此风险的跟踪者成为此RA的参与者
-		List<User> followers = followDao.getFollowUserByAssignmentid(assignmentid);
-		List<User> attend = selectionDao.getAttendUserByCid(cid);
-		for (User f : followers) {
-			boolean isAttend = false;
-			for (User a : attend) {
-				if (f.getUid().equals(a.getUid())) {
-					isAttend = true;
-					break;
+		Manage ma=manageDao.findByColumns(Manage.class, "cid", cid, "assignmentid", assignmentid);
+		if(ma==null){
+			Manage m = new Manage();
+			m.setAssignmentid(assignmentid);
+			m.setCid(cid);
+			m.setCreatedAt(new Date());
+			manageDao.save(m);
+			
+			//此风险的跟踪者成为此RA的参与者
+			List<User> followers = followDao.getFollowUserByAssignmentid(assignmentid);
+			List<User> attend = selectionDao.getAttendUserByCid(cid);
+			for (User f : followers) {
+				boolean isAttend = false;
+				for (User a : attend) {
+					if (f.getUid().equals(a.getUid())) {
+						isAttend = true;
+						break;
+					}
 				}
-			}
-			if (!isAttend) {
-				selectionDao.addSelection(cid, f.getUid());
+				if (!isAttend) {
+					selectionDao.addSelection(cid, f.getUid());
+				}
 			}
 		}
 	}
