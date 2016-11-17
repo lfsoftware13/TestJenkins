@@ -53,6 +53,8 @@ public interface AssignmentService {
 	
 	public void writeReport(Report report);
 	
+	public boolean updateReport(Report report);
+	
 	public List<Report> getReports(int assignmentid);
 	
 	public List<User> getFollowsByAssignmentid(int assignmentid);

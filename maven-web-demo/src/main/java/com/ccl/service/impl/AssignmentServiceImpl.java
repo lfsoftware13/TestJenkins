@@ -164,6 +164,21 @@ public class AssignmentServiceImpl implements AssignmentService{
 	public void writeReport(Report report) {
 		reportDao.save(report);
 	}
+	
+	@Override
+	public boolean updateReport(Report report){
+		if(report==null||report.getReportid()==0){
+			return false;
+		}
+		
+		Report re=reportDao.findById(Report.class, report.getReportid());
+		re.setContent(report.getContent());
+		re.setCreatedAt(new Date());
+		re.setStateDesc(report.getStateDesc());
+		re.setUid(report.getUid());
+		reportDao.update(re);
+		return true;
+	}
 
 	/* (non-Javadoc)
 	 * @see com.ccl.service.AssignmentService#getUserInProject(int)

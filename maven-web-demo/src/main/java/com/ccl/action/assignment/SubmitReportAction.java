@@ -32,6 +32,8 @@ public class SubmitReportAction extends BaseAction{
 	
 	private String result;
 	
+	private Report report;
+	
 	public String execute() {
 		String uid = Utility.getUser(request).getUid();
 		int assignmentid = Integer.parseInt(request.getParameter("assignmentid"));
@@ -58,8 +60,48 @@ public class SubmitReportAction extends BaseAction{
 		return SUCCESS;
 	}
 	
+	public String changeRiskToProblem(){
+		if(report==null||report.getReportid()==0){
+			result="fail_report_null";
+			return SUCCESS;
+		}
+		report.setUid(Utility.getUser(request).getUid());
+		if("风险".equals(report.getStateDesc())){
+			report.setStateDesc("问题");
+		}
+		
+		boolean flag=assignmentService.updateReport(report);
+		
+		if(flag){
+			result="success";
+		}else{
+			result="fail";
+		}
+		return SUCCESS;
+	}
+	
 	public String getResult() {
 		return result;
+	}
+
+	public AssignmentService getAssignmentService() {
+		return assignmentService;
+	}
+
+	public void setAssignmentService(AssignmentService assignmentService) {
+		this.assignmentService = assignmentService;
+	}
+
+	public Report getReport() {
+		return report;
+	}
+
+	public void setReport(Report report) {
+		this.report = report;
+	}
+
+	public void setResult(String result) {
+		this.result = result;
 	}
 
 

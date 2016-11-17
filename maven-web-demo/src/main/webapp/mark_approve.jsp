@@ -189,19 +189,42 @@
 						<th>状态描述</th>
 						<th>详细信息</th>
 						<th>提交者</th>
+						<th>操作</th>						
 					</tr>
 				</thead>
 				<tbody>
 
 					<c:forEach var="item" items="${reports}">
 						<tr>
-							<td>${item.createdAt}</td>
-							<td><input name="name_1" type="text" class="no-box"
+							<td style="display:none;" name="reportid">${item.reportid}</td>
+							<td name="createdAt">${item.createdAt}</td>
+							<td><input name="stateDesc" type="text" class="no-box"
 								value="${item.stateDesc}" readOnly="readOnly"></td>
-							<td><input name="name_1" type="text" class="no-box"
+							<td><input name="content" type="text" class="no-box"
 								value="${item.content}" readOnly="readOnly" /></td>
-							<td><input name="name_1" type="text" class="no-box"
+							<td><input name="uid" type="text" class="no-box"
 								value="${item.uid}" readOnly="readOnly"></td>
+							
+							<s:if test="isFollow=='true'">
+							<c:if test="${item.stateDesc=='风险'}">
+							
+								<td><input name="name_1" type="button" class="course-submit"
+								value="演变为问题" onclick="changeRiskToProblem(this);" /></td>
+							
+							</c:if>
+							<c:if test="${item.stateDesc=='问题'}">
+							<td>-</td>
+							
+							</c:if>
+							<c:if test="${item.stateDesc!='风险'&&item.stateDesc!='问题'}">
+							<td>-</td>
+							
+							</c:if>		
+							</s:if>
+							<s:else>
+							<td>-</td>
+							</s:else>					
+							
 						</tr>
 					</c:forEach>
 				</tbody>
@@ -252,13 +275,19 @@
 		$btn.bind("click", function() {
 			var stateDesc = $('#stateDesc option:selected').val();
 			var content = $("#content").val();
+			
+			console.log({
+				"stateDesc" : stateDesc,
+				"content" : content,
+				"assignmentid" : "<s:property value='assignmentid' />"
+			});
 			$.ajax({
 				type : "post",
 				url : "/maven-web-demo/assignment/SubmitReport",
 				data : {
-					stateDesc : stateDesc,
-					content : content,
-					assignmentid : assignmentid
+					"stateDesc" : stateDesc,
+					"content" : content,
+					"assignmentid" : "<s:property value='assignmentid' />"
 				},
 				dataType : "json",
 				success : function(data) {
@@ -362,6 +391,67 @@
 						window.location.reload(true);
 					} else {
 						alert("删除失败：请检查。");
+					}
+				},
+				error : function() {
+					alert("系统异常，请稍后重试！");
+				},
+			});
+			
+		}
+		
+		function changeRiskToProblem(a){
+			var p=$(a).parent().parent();
+			var reids=$(p).find("[name='reportid']");
+			var recreates=$(p).find("[name='createdAt']");
+			var restates=$(p).find("[name='stateDesc']");
+			var recontents=$(p).find("[name='content']");
+			var reuids=$(p).find("[name='uid']");
+			
+			var j={};
+			if(reids.length<=0){
+				alert("找不到风险状态");
+				return -1;
+			}else{
+				j["report.reportid"]=$(reids[0]).text();
+			}
+			if(recreates.length>0){
+				j["report.createdAt"]=$(recreates[0]).text();
+			}else{
+				j["report.createdAt"]=new Date();
+			}
+			if(restates.length>0){
+				j["report.stateDesc"]=$(restates[0]).val();
+			}else{
+				j["report.stateDesc"]="风险";
+			}
+			if(recontents.length>0){
+				j["report.content"]=$(recontents[0]).val();
+			}else{
+				j["report.stateDesc"]="";
+			}
+			if(reuids.length>0){
+				j["report.uid"]=$(reuids[0]).val();
+			}
+			
+			console.log(j);
+			
+			$.ajax({
+				type : "post",
+				url : "/maven-web-demo/assignment/SubmitReport!changeRiskToProblem",
+				data : j,
+				dataType : "json",
+				success : function(data) {
+					if (data == "deny") {
+						alert("操作拒绝：您不是该风险的跟踪者。");
+					} else if (data == "success") {
+						alert("成功！");
+						window.location.reload(true);
+					} else if (data == "fail_report_null") {
+						alert("状态跟踪记录不存在");
+						window.location.reload(true);
+					} else {
+						alert("转化失败：请检查。");
 					}
 				},
 				error : function() {
