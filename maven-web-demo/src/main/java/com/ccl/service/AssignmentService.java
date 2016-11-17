@@ -74,6 +74,8 @@ public interface AssignmentService {
 	public List<StatisticsVO> getRecomendProbAssignmentToImport(Date start, Date end, int cid);
 	
 	public void importAssignment(int cid, int assignmentid);
+	
+	public boolean removeAssignment(int cid, int assignmentid);
 
 
 }

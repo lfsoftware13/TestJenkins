@@ -198,9 +198,9 @@
 	   				var delBtn = document.createElement("input");
 	   				delBtn.setAttribute("type", "button");
 	   				delBtn.setAttribute("name", ass.assignmentid);
-	   				delBtn.setAttribute("value", "删除");
+	   				delBtn.setAttribute("value", "移除");
 	   				delBtn.setAttribute("class", "course-submit");
-	   				delBtn.setAttribute("onclick", "delAssignment(this)");
+	   				delBtn.setAttribute("onclick", "removeAssignmentFromProject(this)");
 	   				row.insertCell(8).appendChild(delBtn);
 	   			}
 	   		}
@@ -250,6 +250,36 @@
 	   			});
 	   		}
 	   		
+	   		function removeAssignmentFromProject(a){
+	   			var cid="<s:property value='cid' />";
+	   			
+	   			var aid=$(a).attr("name");
+	   			
+	   			$.ajax({
+	   				type : "post",
+	   				url : "/maven-web-demo/assignment/DelAssignment!removeAssignmentFromProject",
+	   				data : {
+	   					"aid":aid,
+	   					"cid":cid
+	   				},
+	   				dataType : "json",
+	   				success : function(data) {
+	   					if (data == "success") {
+	   						alert("移除成功");
+	   						refreshAssignmentTable();
+	   					} else if(data=="fail_project_null"){
+	   						alert("移除失败：项目不存在")
+	   					} else {
+	   						alert("移除失败：系统异常。")
+	   					}
+	   				},
+	   				error : function() {
+	   					alert("系统异常，请稍后重试！")
+	   				}
+	   			});
+	   			
+	   		}
+	   		
 	   		
 	   		function checkMark(btn) {
 	   			var assignmentid = btn.name;
@@ -274,7 +304,7 @@
 										<th>提交者</th>
 										<th>提交时间</th>
 										<th>查看状态跟踪</th>
-										<th>删除</th>
+										<th>移除</th>
 								    </tr>
 								</thead>
 			</table>

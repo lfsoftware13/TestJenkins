@@ -352,5 +352,14 @@ public class AssignmentServiceImpl implements AssignmentService{
 			}
 		}
 	}
+	
+	@Override
+	public boolean removeAssignment(int cid, int assignmentid){
+		Manage ma=manageDao.findByColumns(Manage.class, "cid", cid, "assignmentid", assignmentid);
+		if(ma!=null){
+			manageDao.delete(ma);
+		}
+		return true;
+	}
 
 }

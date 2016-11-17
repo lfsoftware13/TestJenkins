@@ -28,10 +28,32 @@ public class DelAssignmentAction extends BaseAction{
 	
 	private String result;
 	
+	private int cid;
+	
+	private int aid;
+	
 	public String execute() {
 		int assignmentid = Integer.parseInt(request.getParameter("assignmentid"));
 		service.delAssignment(assignmentid);
 		setResult("success");
+		return SUCCESS;
+	}
+	
+	public String removeAssignmentFromProject(){
+		if(cid<=0){
+			setResult("fail_project_null");
+			return SUCCESS;
+		}
+		if(aid<=0){
+			setResult("success");
+			return SUCCESS;
+		}
+		boolean flag=service.removeAssignment(cid, aid);
+		if(flag){
+			setResult("success");
+		}else{
+			setResult("fail");
+		}
 		return SUCCESS;
 	}
 
@@ -41,6 +63,30 @@ public class DelAssignmentAction extends BaseAction{
 
 	public void setResult(String result) {
 		this.result = result;
+	}
+
+	public AssignmentService getService() {
+		return service;
+	}
+
+	public void setService(AssignmentService service) {
+		this.service = service;
+	}
+
+	public int getCid() {
+		return cid;
+	}
+
+	public void setCid(int cid) {
+		this.cid = cid;
+	}
+
+	public int getAid() {
+		return aid;
+	}
+
+	public void setAid(int aid) {
+		this.aid = aid;
 	}
 
 }
