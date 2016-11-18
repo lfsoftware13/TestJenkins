@@ -225,7 +225,7 @@
 	   		
 	   		function delAssignment(btn) {
 	   			if (authority == "1") {
-	   				alert("您不是项目负责人，无权删除风险")
+	   				alert("您不是RA负责人，无权删除风险")
 	   				return;
 	   			}
 	   			var assignmentid = btn.name;
@@ -268,7 +268,7 @@
 	   						alert("移除成功");
 	   						refreshAssignmentTable();
 	   					} else if(data=="fail_project_null"){
-	   						alert("移除失败：项目不存在")
+	   						alert("移除失败：RA不存在")
 	   					} else {
 	   						alert("移除失败：系统异常。")
 	   					}

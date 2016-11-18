@@ -53,7 +53,7 @@ public class TeachCourseServiceImpl implements TeachCourseService{
 		StringBuffer sb = new StringBuffer();
 		for (String uid : uids) {
 			if (selectionDao.findByColumns(Selection.class, "cid", cid, "uid", uid) != null) {
-				sb.append(uid + "添加失败：已经是该项目参与者。");
+				sb.append(uid + "添加失败：已经是该RA参与者。");
 			}
 			else {
 				boolean flag = selectionDao.addSelection(cid, uid);
@@ -135,7 +135,7 @@ public class TeachCourseServiceImpl implements TeachCourseService{
 		StringBuffer sb = new StringBuffer();
 		for (String uid : uids) {
 			if (selectionDao.findByColumns(Selection.class, "cid", cid, "uid", uid) != null) {
-				sb.append(uid + "添加失败：已经是该项目参与者。");
+				sb.append(uid + "添加失败：已经是该RA参与者。");
 			}else {
 				boolean flag = assistDao.addAssist(cid, uid);
 				if (!flag) {

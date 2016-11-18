@@ -15,7 +15,7 @@
 	   	  <s:form class="login" action="user/Login" method="post">
 	    	<p class="lead">欢迎!</p>
 		    <div class="form-group">
-			    <input autocomplete="off" type="text"  class="required form-control" placeholder="学工号" name="uid" >
+			    <input autocomplete="off" type="text"  class="required form-control" placeholder="工号" name="uid" >
 		    </div>
 		    <div class="form-group">
 			    <input autocomplete="off" type="password" class="password required form-control" placeholder="密码" name="password">

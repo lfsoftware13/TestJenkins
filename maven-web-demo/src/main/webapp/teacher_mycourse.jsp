@@ -3,7 +3,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>我的项目</title>
+<title>我的RA</title>
 <%@ include file="meta_and_script.jsp"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <link href="/maven-web-demo/css/flexslider.css" rel='stylesheet' type='text/css' />
@@ -17,7 +17,7 @@
 			<div class="col-md-9">
 				<div class="course_list">
 					<div class="table-header clearfix">
-						<div class="name_col">项目名称</div>
+						<div class="name_col">RA名称</div>
 						<div class="duration_col">风险等级</div>
 						<div class="date_col">状态</div>
 					</div>

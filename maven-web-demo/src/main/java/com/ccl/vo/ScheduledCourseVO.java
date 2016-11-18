@@ -17,7 +17,7 @@ public class ScheduledCourseVO {
 	private int cid;
 	private String coursename;
 	private int credit;	//学分数
-	private String description;	//项目描述
+	private String description;	//RA描述
 	private String teacher;
 	private String semesterName;
 	

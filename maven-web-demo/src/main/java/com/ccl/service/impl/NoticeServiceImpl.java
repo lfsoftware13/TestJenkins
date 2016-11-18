@@ -42,7 +42,7 @@ public class NoticeServiceImpl implements NoticeService{
 		String name = course.getCoursename();
 		Notice notice = new Notice();
 		notice.setCid(cid);
-		notice.setContent("您已经成为项目《" + name + "》的参与者！");
+		notice.setContent("您已经成为RA《" + name + "》的参与者！");
 		notice.setUid(uid);
 		notice.setUptoDate(new Date());
 		noticeDao.save(notice);
@@ -57,7 +57,7 @@ public class NoticeServiceImpl implements NoticeService{
 		String name = course.getCoursename();
 		Notice notice = new Notice();
 		notice.setCid(cid);
-		notice.setContent("您已经成为项目《" + name + "》的负责人！");
+		notice.setContent("您已经成为RA《" + name + "》的负责人！");
 		notice.setUid(uid);
 		notice.setUptoDate(new Date());
 		noticeDao.save(notice);
@@ -72,7 +72,7 @@ public class NoticeServiceImpl implements NoticeService{
 		String name = course.getCoursename();
 		Notice notice = new Notice();
 		notice.setCid(cid);
-		notice.setContent("您已经成为项目《" + name + "》的助教！");
+		notice.setContent("您已经成为RA《" + name + "》的助教！");
 		notice.setUid(uid);
 		notice.setUptoDate(new Date());
 		noticeDao.save(notice);
@@ -90,7 +90,7 @@ public class NoticeServiceImpl implements NoticeService{
 		for (Selection s : selections) {
 			Notice notice = new Notice();
 			notice.setCid(cid);
-			notice.setContent("您的项目《" + name + "》有新的风险！");
+			notice.setContent("您的RA《" + name + "》有新的风险！");
 			notice.setUid(s.getUid());
 			notice.setUptoDate(new Date());
 			noticeDao.save(notice);

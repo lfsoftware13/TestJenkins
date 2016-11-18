@@ -28,10 +28,10 @@
 		        
 		        <li class="dropdown">
 		        	<s:if test="#session.user.userType==0" >
-		        		<s:a href="/maven-web-demo/mycourse/TeacherMyCourse"><i class="fa fa-list"></i><span>我的项目</span></s:a>
+		        		<s:a href="/maven-web-demo/mycourse/TeacherMyCourse"><i class="fa fa-list"></i><span>我的RA</span></s:a>
 		        	</s:if>
 		        	<s:elseif test="#session.user.userType==1">
-		        		<s:a href="/maven-web-demo/mycourse/StudentMyCourse"><i class="fa fa-list"></i><span>我的项目</span></s:a>
+		        		<s:a href="/maven-web-demo/mycourse/StudentMyCourse"><i class="fa fa-list"></i><span>我的RA</span></s:a>
 		        	</s:elseif>
 		        </li>
 		        
@@ -70,7 +70,7 @@
 	        	
 	        	<s:if test="#session.teacher.isAdmin==true">
 	        		<li class="dropdown">
-		            	<s:a href="/maven-web-demo/course/CoursePage"><i class="fa fa-book"></i><span>项目管理</span></s:a>
+		            	<s:a href="/maven-web-demo/course/CoursePage"><i class="fa fa-book"></i><span>RA管理</span></s:a>
 		        	</li>
 	        	</s:if>
 	        	

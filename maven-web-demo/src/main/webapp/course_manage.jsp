@@ -6,7 +6,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>项目管理</title>
+<title>RA管理</title>
 <%@ include file="meta_and_script.jsp"%>
 <script src="/maven-web-demo/js/mysift.js" ></script>
 </head>
@@ -17,12 +17,12 @@
 			<form class="contact_form">
 				<div class="col-md-6 grid_6"  >
 					<input type="text" class="text" name="coursename" id="coursename"
-						placeholder="项目名称" />
+						placeholder="RA名称" />
 					 <input type="text" class="text"
 						name="credit" id="credit" placeholder="风险评估等级（1/2/3/4/5）" />
 				</div>
 				<div class="col-md-6 grid_6">
-					<textarea style="height:120px" placeholder="项目描述" id="description"></textarea>
+					<textarea style="height:120px" placeholder="RA描述" id="description"></textarea>
 				</div>
 				<div class="clearfix"></div>
 			</form>
@@ -41,9 +41,9 @@
 			<table class="timetable" id="courseTable">
 				<thead>
 					<tr>
-						<th>项目名称</th>
+						<th>RA名称</th>
 						<th>风险评估等级</th>
-						<th>项目描述</th>
+						<th>RA描述</th>
 						<th>负责人</th>
 						<th>删除</th>
 					</tr>

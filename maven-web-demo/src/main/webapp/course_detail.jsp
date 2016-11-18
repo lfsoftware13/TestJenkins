@@ -4,7 +4,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>项目主页</title>
+<title>RA主页</title>
 <%@ include  file="meta_and_script.jsp"%>
 </head>
 <body>
@@ -31,7 +31,7 @@
                     <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne" aria-expanded="true">
                         <div class="panel-body">
                             <p>风险评估等级：${course.credit}</p>
-							<p>项目描述：${course.description}</p>
+							<p>RA描述：${course.description}</p>
                         </div>
                     </div>
                 </div>
@@ -39,7 +39,7 @@
                     <div class="panel-heading" role="tab" id="headingFour">
                         <h4 class="panel-title">
                             <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                                <i class="fa fa-clock-o icon_3"></i> 项目状态
+                                <i class="fa fa-clock-o icon_3"></i> RA状态
                             </a>
                         </h4>
                     </div>
@@ -61,7 +61,7 @@
                     <div class="panel-heading" role="tab" id="headingTwo">
                         <h4 class="panel-title">
                             <a href="#" onclick="gotoAssignmentManage()">
-                                <i class="fa fa-pencil-square-o icon_3"></i> 项目风险
+                                <i class="fa fa-pencil-square-o icon_3"></i> RA风险
                             </a>
                         </h4>
                     </div>
@@ -98,7 +98,7 @@
                     <div class="panel-heading" role="tab" id="headingTwenty">
                         <h4 class="panel-title">
                             <a href="#" onclick="downloadExcel()">
-                                <i class="fa fa-barcode icon_3"></i> 项目总结
+                                <i class="fa fa-barcode icon_3"></i> RA总结
                             </a>
                         </h4>
                     </div>
@@ -112,10 +112,10 @@
 	<script>
 	function downloadExcel() {
 		<c:if test="${course.state eq 0}">
-    	alert("不能下载总结：项目尚未结束。");
+    	alert("不能下载总结：RA尚未结束。");
 	</c:if>
 	<c:if test="${course.state eq 1}">
-	alert("不能下载总结：项目尚未结束。");
+	alert("不能下载总结：RA尚未结束。");
 	</c:if>
 	<c:if test="${course.state eq 2}">
 		$.ajax({
@@ -136,7 +136,7 @@
 	
 	function gotoAssignmentManage() {
 		<c:if test="${course.state eq 0}">
-    	alert("不能查看风险：项目尚未开始。");
+    	alert("不能查看风险：RA尚未开始。");
 	</c:if>
 	<c:if test="${course.state eq 1}">
 		window.location.href="/maven-web-demo/assignment/AssignmentsPage.action?authority=${authority}&cid=${course.cid}";
@@ -154,7 +154,7 @@
     		window.location.href="/maven-web-demo/teachcourse/SelectionManagePage.action?cid=${course.cid}";
     	</c:if>
     	<c:if test="${course.state eq 2}">
-    		alert("不能安排添加参与者：项目已经关闭");
+    		alert("不能安排添加参与者：RA已经关闭");
     	</c:if>
 	}
 	
@@ -166,7 +166,7 @@
 			window.location.href="/maven-web-demo/teachcourse/AssistManagePage.action?cid=${course.cid}";
 		</c:if>
 		<c:if test="${course.state eq 2}">
-			alert("不能安排助教：项目已经关闭");
+			alert("不能安排助教：RA已经关闭");
 		</c:if>		
 	}
 	

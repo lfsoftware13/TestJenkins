@@ -32,7 +32,7 @@ public class Course implements Serializable{
 	private String coursename;
 	private int semesterid;
 	private int credit;	//学分数
-	private String description;	//项目描述
+	private String description;	//RA描述
 	private int state;	//0尚未开始  1正在进行 2已经结束
 	private Date createdAt;
 	
